@@ -3,16 +3,17 @@
 namespace Ardiran\Core;
 
 use Ardiran\Core\Application\Container;
-use Ardiran\Core\View\Blade\BladeProvider;
-use Ardiran\Core\View\Blade\Blade;
-use Ardiran\Core\Config\Config;
+use Ardiran\Core\Setup;
 
 class Ardiran{
+
+    private $container;
 
     private $config;
 
     public function __construct($config = []){
-        
+
+        $this->container = Container::getInstance();
         $this->config = $config;
 
         $this->setup();
@@ -21,7 +22,7 @@ class Ardiran{
 
     public function app($abstract = null, $parameters = [], Container $container = null){
 
-        $container = $container ?: Container::getInstance();
+        $container = $container ?: $this->container;
 
         if (!$abstract) {
             return $container;
@@ -55,56 +56,8 @@ class Ardiran{
 
     private function setup(){
 
-        $this->defineConfigValues();
-        $this->registerConfig();
-        $this->registerBlade();
-
-    }
-    
-    private function defineConfigValues(){
-
-        $defaults = [
-            'theme' => [
-                'dir' => get_theme_file_path(),
-                'uri' => get_theme_file_uri(),
-            ],
-            'view' => [ 
-                'paths' => [ 
-                    get_theme_file_path().'/views',
-                    get_parent_theme_file_path().'/views',
-                ],
-                'compiled' => wp_upload_dir()['basedir'] . '/cache',
-                'namespaces' => [ ],
-            ]
-        ];
-
-        $this->config = array_replace_recursive($defaults, $this->config);
-
-    }
-
-    private function registerConfig(){
-
-        $this->app()->bindIf('config', function () {
-            return new Config($this->config);
-        }, true);
-
-    }
-
-    private function registerBlade(){
-
-        $this->app()->singleton('ardiran.blade', function (Container $app) {
-
-            $cachePath = $this->config('view.compiled');
-
-            if (!file_exists($cachePath)) {
-                wp_mkdir_p($cachePath);
-            }
-
-            (new BladeProvider($app))->register();
-
-            return new Blade($app['view']);
-
-        });
+        Setup::registerConfig($this->container, $this->config);
+        Setup::registerBlade($this->container);
 
     }
 

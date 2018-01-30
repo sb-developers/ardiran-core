@@ -2,7 +2,7 @@
 
 namespace Ardiran\Core\View\Blade;
 
-use Illuminate\Container\Container;
+use Ardiran\Core\Application\Container;
 use Illuminate\Contracts\Container\Container as ContainerContract;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
