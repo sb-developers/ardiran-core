@@ -16,14 +16,15 @@ class Ardiran{
     public function __construct($config = []){
 
         $config_defaults = [
-            "views" => [],
+            "view" => [ ],
+            "controller" => [ ],
         ];
 
         $this->config = array_replace_recursive($config_defaults, $config);
 
         $this->container = Container::getInstance();
 
-        $this->blade = Blade::getInstance($config['views']);
+        $this->blade = Blade::getInstance($config['view']);
 
     }
 
