@@ -2,155 +2,115 @@
 
 namespace Ardiran\Core\View\Blade;
 
-use Illuminate\Contracts\Container\Container as ContainerContract;
-use Illuminate\Contracts\View\Factory as FactoryContract;
-use Illuminate\View\Engines\CompilerEngine;
-use Illuminate\View\Engines\EngineInterface;
-use Illuminate\View\ViewFinderInterface;
-
-/**
- * Class BladeProvider
- *
- * @method bool exists(string $view) Determine if a given view exists.
- * @method mixed share(array|string $key, mixed $value = null)
- * @method array creator(array|string $views, \Closure|string $callback)
- * @method array composer(array|string $views, \Closure|string $callback)
- * @method \Illuminate\View\View file(string $file, array $data = [], array $mergeData = [])
- * @method \Illuminate\View\View make(string $file, array $data = [], array $mergeData = [])
- * @method \Illuminate\View\View addNamespace(string $namespace, string|array $hints)
- * @method \Illuminate\View\View replaceNamespace(string $namespace, string|array $hints)
- * @method \Illuminate\Contracts\Container\Container getContainer()
- */
 class Blade{
+
+    private static $_instance;
+
+    private $paths;
+
+    private $compiled;
+
+    private $factory;
+
+    public function __construct($config) {
+
+        if(!isset($config['paths']) && empty($config['paths'])){
+            die('It is necessary to define the path of the Blade views');
+        }
+
+        if(!isset($config['compiled']) && empty($config['compiled'])){
+            die('It is necessary to define the path of the cache directory of the Blade views');
+        }
+
+        $this->paths = $config['paths'];
+        $this->compiled = $config['compiled'];
+
+        $this->maybeCreateCacheDirectory();
+
+        $this->factory = new Factory( $this->paths, $this->compiled );
+        $this->extend();
+
+    }
+
+    /**
+	 * Main Blade Instance.
+	 *
+	 * Ensures only one instance of Blade is loaded or can be loaded.
+	 *
+	 * @since 1.0
+	 * @static
+	 * @return Ardiran\Core\View\Blade
+	 */
+	public static function getInstance($config = []) {
+
+		if ( is_null( self::$_instance ) ) {
+			self::$_instance = new self($config);
+        }
+        
+        return self::$_instance;
+        
+	}
+
+    /**
+	 * Checks whether the cache directory exists, and if not creates it.
+	 *
+	 * @return boolean
+	 */
+	private function maybeCreateCacheDirectory() {
+
+		if ( !is_dir( $this->compiled ) ) {
+			if ( wp_mkdir_p( $this->compiled ) ) {
+				return true;
+			}
+        }
+        
+        return false;
+        
+    }
     
-    /** @var Factory */
-    protected $env;
-
-    public function __construct(FactoryContract $env){
-        $this->env = $env;
-    }
-
     /**
-     * Get the compiler
-     *
-     * @return \Illuminate\View\Compilers\BladeCompiler
-     */
-    public function compiler(){
+	 * Extend blade with some custom directives
+	 *
+	 * @return void
+	 */
+	private function extend() {
 
-        static $engineResolver;
+        /*
+         * Add the "@wp_head" directive
+         */
+        $this->factory->compiler()->directive('wp_head', function () {
+            return '<?php wp_head(); ?>';
+        });
 
-        if (!$engineResolver) {
-            $engineResolver = $this->getContainer()->make('view.engine.resolver');
-        }
+        /*
+         * Add the "@wp_footer" directive
+         */
+        $this->factory->compiler()->directive('wp_footer', function () {
+            return '<?php wp_footer(); ?>';
+        });
 
-        return $engineResolver->resolve('blade')->getCompiler();
-
-    }
-
-    /**
-     * @param string $view
-     * @param array  $data
-     * @param array  $mergeData
-     * @return string
-     */
-    public function render($view, $data = [], $mergeData = []){
-
-        /** @var \Illuminate\Contracts\Filesystem\Filesystem $filesystem */
-        $filesystem = $this->getContainer()['files'];
-
-        return $this->{$filesystem->exists($view) ? 'file' : 'make'}($view, $data, $mergeData)->render();
-   
-    }
-
-    /**
-     * @param string $file
-     * @param array  $data
-     * @param array  $mergeData
-     * @return string
-     */
-    public function compiledPath($file, $data = [], $mergeData = []){
-
-        $rendered = $this->file($file, $data, $mergeData);
-
-        /** @var EngineInterface $engine */
-        $engine = $rendered->getEngine();
-
-        if (!($engine instanceof CompilerEngine)) {
-            // Using PhpEngine, so just return the file
-            return $file;
-        }
-
-        $compiler = $engine->getCompiler();
-        $compiledPath = $compiler->getCompiledPath($rendered->getPath());
-
-        if ($compiler->isExpired($compiledPath)) {
-            $compiler->compile($file);
-        }
-
-        return $compiledPath;
+        /*
+         * Add the "@get_bloginfo" directive
+         */
+        $this->factory->compiler()->directive('get_bloginfo', function ($show = '', $filter = 'raw') {
+            return '<?php echo get_bloginfo(' . $show . ', ' . $filter . '); ?>';
+        });
 
     }
 
     /**
-     * @param string $file
-     * @return string
-     */
-    public function normalizeViewPath($file){
+	 * Renders a given template
+	 *
+	 * @param string  $template Path to the template
+	 * @param array   $with     Additional args to pass to the tempalte
+	 * @return string           Compiled template
+	 */
+	public function view( $template, $with = array() ) {
 
-        // Convert `\` to `/`
-        $view = str_replace('\\', '/', $file);
-
-        // Add namespace to path if necessary
-        $view = $this->applyNamespaceToPath($view);
-
-        // Remove unnecessary parts of the path
-        $view = str_replace(array_merge(
-            $this->getContainer()['config']['view.paths'],
-            ['.blade.php', '.php', '.css']
-        ), '', $view);
-
-        // Remove superfluous and leading slashes
-        return ltrim(preg_replace('%//+%', '/', $view), '/');
-
-    }
-
-    /**
-     * Convert path to view namespace
-     *
-     * @param string $path
-     * @return string
-     */
-    public function applyNamespaceToPath($path){
-
-        /** @var ViewFinderInterface $finder */
-        $finder = $this->getContainer()['view.finder'];
-
-        if (!method_exists($finder, 'getHints')) {
-            return $path;
-        }
-
-        $delimiter = $finder::HINT_PATH_DELIMITER;
-        $hints = $finder->getHints();
+        $html = $this->factory->render( $template, $with );
         
-        $view = array_reduce(array_keys($hints), function ($view, $namespace) use ($delimiter, $hints) {
-            return str_replace($hints[$namespace], $namespace.$delimiter, $view);
-        }, $path);
+        return $html;
         
-        return preg_replace("%{$delimiter}[\\/]*%", $delimiter, $view);
-
-    }
-
-    /**
-     * Pass any method to the view Factory instance.
-     *
-     * @param  string $method
-     * @param  array  $params
-     * @return mixed
-     */
-    public function __call($method, $params){
-
-        return call_user_func_array([$this->env, $method], $params);
-        
-    }
+	}
 
 }
