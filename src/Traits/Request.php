@@ -1,6 +1,6 @@
 <?php
 
-namespace Ardiran\Core\Ajax\Traits;
+namespace Ardiran\Core\Traits;
 
 trait Request {
 

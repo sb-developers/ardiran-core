@@ -2,10 +2,10 @@
 
 namespace Ardiran\Core\Ajax;
 
-use Ardiran\Core\Ajax\Traits\Request;
-use Ardiran\Core\Ajax\Traits\Response;
+use Ardiran\Core\Traits\Request;
+use Ardiran\Core\Traits\Response;
 
-abstract class AjaxController{
+abstract class WpAjaxController{
 
     use Request, Response;
 

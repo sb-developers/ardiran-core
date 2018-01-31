@@ -7,6 +7,7 @@ use Illuminate\Container\Container as IlluminateContainer;
 class Container extends IlluminateContainer{
 
     protected $providers = [
+        \Ardiran\Core\Config\ConfigProvider::class,
         \Ardiran\Core\View\Blade\BladeProvider::class
     ];
 
