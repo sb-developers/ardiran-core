@@ -5,19 +5,19 @@ namespace Ardiran\Core\Traits;
 Trait Singleton {
 
     /**
-    * Store the singleton object.
+    * Variable where the singleton object is stored.
     */
    private static $singleton = false;
 
    /**
-    * Create an inaccessible contructor.
+    * Define an inaccessible constructor.
     */
    private function __construct() {
        $this->__instance();
    }
 
    /**
-    * Fetch an instance of the class.
+    * Get an instance of the class.
     */
    public static function getInstance() {
 

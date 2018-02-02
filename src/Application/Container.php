@@ -6,19 +6,37 @@ use Illuminate\Container\Container as IlluminateContainer;
 
 class Container extends IlluminateContainer{
 
+    /**
+     * List with the providers to load in the Laravel container.
+     *
+     * @var array
+     */
     protected $providers = [
         \Ardiran\Core\Config\ConfigProvider::class,
         \Ardiran\Core\View\Blade\BladeProvider::class
     ];
 
+    /**
+     * List with the providers that have been loaded.
+     *
+     * @var array
+     */
     protected $loadedProviders = [];
 
+    /**
+     * Constructor
+     */
     public function __construct(){
 
         $this->registerProviders();
 
     }
 
+    /**
+     * All the providers are registered in the Laravel container.
+     *
+     * @return void
+     */
     private function registerProviders(){
 
         foreach ($this->providers as $provider) {
@@ -27,6 +45,14 @@ class Container extends IlluminateContainer{
 
     }
 
+    /**
+     * Register a provider in the Laravel container.
+     *
+     * @param string $provider
+     * @param array $options
+     * @param boolean $force
+     * @return void
+     */
     public function register($provider, array $options = [], $force = false){
 
         if (!$provider instanceof ServiceProvider) {

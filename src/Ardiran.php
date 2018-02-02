@@ -3,25 +3,35 @@
 namespace Ardiran\Core;
 
 use Ardiran\Core\Application\Container;
-use Ardiran\Core\Config\Config;
 use Ardiran\Core\Traits\Singleton;
 
 class Ardiran{
 
     use Singleton;
 
+    /**
+     * Instance of Laravel Container.
+     *
+     * @var Container
+     */
     private $container;
-
-    private $config;
-
+    
+    /**
+     * Constructor
+     */
     public function __construct(){
 
         $this->container = new Container();
 
-        $this->config = new Config();
-
     }
 
+    /**
+     * Allows access to container functionalities or obtain the container.
+     *
+     * @param string $abstract
+     * @param array $parameters
+     * @return void
+     */
     public function container($abstract = null, $parameters = []){
        
         if (!$abstract) {
@@ -34,9 +44,15 @@ class Ardiran{
 
     }
 
+    /**
+     * Allows access to the configuration.
+     *
+     * @param string $key
+     * @return void
+     */
     public function config($key){
 
-        return $this->container('ardiran.config')->get($key);
+        return $this->container('config')->get($key);
 
     }
 

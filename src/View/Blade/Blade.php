@@ -2,72 +2,133 @@
 
 namespace Ardiran\Core\View\Blade;
 
+use Ardiran\Core\Application\Container;
+use Ardiran\Core\View\Blade\Directive\WpDirective;
+use Illuminate\Events\Dispatcher;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\View\Compilers\BladeCompiler;
+use Illuminate\View\Engines\CompilerEngine;
+use Illuminate\View\Engines\EngineResolver;
+use Illuminate\View\Engines\PhpEngine;
+use Illuminate\View\Factory;
+use Illuminate\View\FileViewFinder;
+
 class Blade{
 
-    private static $_instance;
+    /**
+     * Instance of Laravel Container.
+     *
+     * @var Container
+     */
+    private $container;
 
-    private $paths;
+    /**
+     * Directories where the Blade templates will be found.
+     *
+     * @var array
+     */
+    private $pathsToTemplates;
 
-    private $compiled;
+    /**
+     * Directory where the compiled templates are stored.
+     *
+     * @var string
+     */
+    private $pathToCompiledTemplates;
 
-    private $factory;
+    /**
+     * Filesystem
+     *
+     * @var Filesystem
+     */
+    private $filesystem;
 
-    public function __construct($config) {
+    /**
+     * Event dispatcher
+     *
+     * @var Dispatcher
+     */
+    private $eventDispatcher;
 
-        if(!isset($config['paths']) && empty($config['paths'])){
-            die('It is necessary to define the path of the Blade views');
-        }
+    /**
+     * View resolver
+     *
+     * @var EngineResolver
+     */
+    private $viewResolver;
 
-        if(!isset($config['compiled']) && empty($config['compiled'])){
-            die('It is necessary to define the path of the cache directory of the Blade views');
-        }
+    /**
+     * Blade Compiler
+     *
+     * @var BladeCompiler
+     */
+    private $bladeCompiler;
 
-        $this->paths = $config['paths'];
-        $this->compiled = $config['compiled'];
+    /**
+     * View finder
+     *
+     * @var FileViewFinder
+     */
+    private $viewFinder;
 
-        $this->maybeCreateCacheDirectory();
+    /**
+     * View factory
+     *
+     * @var Factory
+     */
+    private $viewFactory;
 
-        $this->factory = new Factory( $this->paths, $this->compiled );
+    /**
+     * Constructor
+     *
+     * @param Container $container
+     * @param array $pathsToTemplates
+     * @param string $pathToCompiledTemplates
+     */
+    public function __construct( $container, $pathsToTemplates, $pathToCompiledTemplates ){
+
+        $this->container = $container;
+        $this->pathsToTemplates = $pathsToTemplates;
+        $this->pathToCompiledTemplates = $pathToCompiledTemplates;
+
+        $this->setup();
         $this->extend();
 
     }
 
     /**
-	 * Main Blade Instance.
-	 *
-	 * Ensures only one instance of Blade is loaded or can be loaded.
-	 *
-	 * @since 1.0
-	 * @static
-	 * @return Ardiran\Core\View\Blade
-	 */
-	public static function getInstance($config = []) {
+     * Load all dependencies and generate the Blade compiler
+     *
+     * @return void
+     */
+    private function setup(){
 
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self($config);
-        }
-        
-        return self::$_instance;
-        
-	}
+        $this->filesystem = new Filesystem();
 
-    /**
-	 * Checks whether the cache directory exists, and if not creates it.
-	 *
-	 * @return boolean
-	 */
-	private function maybeCreateCacheDirectory() {
+        $this->eventDispatcher = new Dispatcher( $this->container );
 
-		if ( !is_dir( $this->compiled ) ) {
-			if ( wp_mkdir_p( $this->compiled ) ) {
-				return true;
-			}
-        }
+        $this->viewResolver = new EngineResolver();
+
+        $this->bladeCompiler = new BladeCompiler($this->filesystem, $this->pathToCompiledTemplates);
+
+        $bladeCompiler = $this->bladeCompiler;
+
+        $filesystem = $this->filesystem;
+
+        $this->viewResolver->register('blade', function () use ( $bladeCompiler, $filesystem ) {
+            return new CompilerEngine( $bladeCompiler, $filesystem );
+        });
+
+        $this->viewResolver->register('php', function () {
+            return new PhpEngine();
+        });
+
+        $this->viewFinder = new FileViewFinder($this->filesystem, $this->pathsToTemplates);
         
-        return false;
-        
+        $this->viewFactory = new Factory($this->viewResolver, $this->viewFinder, $this->eventDispatcher);
+
     }
-    
+
     /**
 	 * Extend blade with some custom directives
 	 *
@@ -75,27 +136,8 @@ class Blade{
 	 */
 	private function extend() {
 
-        /*
-         * Add the "@wp_head" directive
-         */
-        $this->factory->compiler()->directive('wp_head', function () {
-            return '<?php wp_head(); ?>';
-        });
-
-        /*
-         * Add the "@wp_footer" directive
-         */
-        $this->factory->compiler()->directive('wp_footer', function () {
-            return '<?php wp_footer(); ?>';
-        });
-
-        /*
-         * Add the "@get_bloginfo" directive
-         */
-        $this->factory->compiler()->directive('get_bloginfo', function ($show = '', $filter = 'raw') {
-            return '<?php echo get_bloginfo(' . $show . ', ' . $filter . '); ?>';
-        });
-
+        (new WpDirective())->extend($this->bladeCompiler);
+ 
     }
 
     /**
@@ -107,7 +149,7 @@ class Blade{
 	 */
 	public function view( $template, $with = array() ) {
 
-        $html = $this->factory->render( $template, $with );
+        $html = $this->viewFactory->make( $template, $with )->render();
         
         return $html;
         
