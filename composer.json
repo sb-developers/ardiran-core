@@ -1,16 +1,14 @@
 {
   "name": "ardiran/core",
-  "description": "ArdiranCore for Wordpress app theme",
-  "keywords": ["wordpress", "plugin", "private"],
-  "license": "proprietary",
+  "type": "package",
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "Adrian Calvet",
       "email": "acalvetgonzalez@gmail.com"
     }
   ],
-  "version": "1.1.0-BETA",
-  "type": "ardiran/core",
+  "minimum-stability": "dev",
   "require": {
     "php": ">=5.3.2",
     "composer/installers": "v1.0.6",
