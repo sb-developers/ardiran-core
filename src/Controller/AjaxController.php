@@ -1,10 +1,10 @@
 <?php
 
-namespace Ardiran\Core\Ajax;
+namespace Ardiran\Core\Controller;
 
-use Ardiran\Core\Ajax\Request;
+use Ardiran\Core\Http\Request;
 
-abstract class WpAjaxController{
+abstract class AjaxController{
 
 	/**
 	 * Name of the action that will be registered in WordPress.
@@ -24,7 +24,7 @@ abstract class WpAjaxController{
 	 * @param Request $request
 	 * @return void
 	 */
-    abstract protected function run(Request $request);
+    abstract protected function run($request);
 
 	/**
 	 * Function registered by the controller within WordPress in order to receive the request.
@@ -53,7 +53,7 @@ abstract class WpAjaxController{
 	 */
 	public static function boot(){ 	
 
-		$request = new Request($_REQUEST);
+		$request = Request::capture();
 		
 		$classObj = Self::getClassName();
 		$class = new $classObj;

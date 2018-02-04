@@ -33,6 +33,13 @@ class WpDirective{
             return '<?php echo get_bloginfo(' . $show . ', ' . $filter . '); ?>';
         });
 
+        /*
+         * Add the "@body_class" directive
+         */
+        $compiler->directive('body_class', function ($class = '') {
+            return '<?php echo body_class(' . $class . '); ?>';
+        });
+
     }
 
 }

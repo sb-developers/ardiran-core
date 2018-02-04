@@ -15,7 +15,9 @@
     "illuminate/view": "^5.4",
     "illuminate/events": "^5.4",
     "illuminate/filesystem": "^5.4",
-    "illuminate/config": "^5.4"
+    "illuminate/config": "^5.4",
+    "illuminate/http": "^5.4",
+    "illuminate/routing": "^5.4"
   },
   "autoload": {
     "psr-4": {

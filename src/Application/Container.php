@@ -13,7 +13,8 @@ class Container extends IlluminateContainer{
      */
     protected $providers = [
         \Ardiran\Core\Config\ConfigProvider::class,
-        \Ardiran\Core\View\Blade\BladeProvider::class
+        \Ardiran\Core\Route\RouterProvider::class,
+        \Ardiran\Core\View\Blade\BladeProvider::class,
     ];
 
     /**
