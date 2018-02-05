@@ -3,8 +3,9 @@
 namespace Ardiran\Core\Controller;
 
 use Ardiran\Core\Http\Request;
+use Ardiran\Core\Controller\Controller;
 
-abstract class AjaxController{
+abstract class AjaxController extends Controller {
 
 	/**
 	 * Name of the action that will be registered in WordPress.

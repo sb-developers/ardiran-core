@@ -4,12 +4,6 @@ namespace Ardiran\Core\Route;
 
 use Illuminate\Routing\RouteCollection as IlluminateRouteCollection;
 
-/**
- * Class RouteCollection
- *
- * @author Themosis
- * @url https://github.com/themosis/framework/blob/1.3/src/Themosis/Route/RouteCollection.php
- */
 class RouteCollection extends IlluminateRouteCollection{
 
     /**

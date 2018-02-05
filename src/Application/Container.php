@@ -3,6 +3,7 @@
 namespace Ardiran\Core\Application;
 
 use Illuminate\Container\Container as IlluminateContainer;
+use Illuminate\Support\Facades\Facade;
 
 class Container extends IlluminateContainer{
 
@@ -30,6 +31,7 @@ class Container extends IlluminateContainer{
     public function __construct(){
 
         $this->registerProviders();
+        $this->configureFacadeObject();
 
     }
 
@@ -71,6 +73,16 @@ class Container extends IlluminateContainer{
         if (method_exists($provider, 'boot')) {
             $provider->boot();
         }
+
+    }
+
+    /**
+     * Register the container in Facade object base.
+     * It is necessary to later find the accesors inside the container.
+     */
+    public function configureFacadeObject(){
+
+        Facade::setFacadeApplication( $this );
 
     }
 

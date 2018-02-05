@@ -7,12 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Ardiran\Core\Route\Matching\ConditionMatching;
 
-/**
- * Class Route
- *
- * @author Themosis
- * @url https://github.com/themosis/framework/blob/1.3/src/Themosis/Route/Route.php
- */
 class Route extends IlluminateRoute{
 
     /**

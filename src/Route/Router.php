@@ -7,12 +7,6 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Routing\Router as IlluminateRouter;
 use Ardiran\Core\Route\Route;
 
-/**
- * Class Router
- *
- * @author Themosis
- * @url https://github.com/themosis/framework/blob/1.3/src/Themosis/Route/Router.php
- */
 class Router extends IlluminateRouter{
 
     /**

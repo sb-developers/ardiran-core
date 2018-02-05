@@ -6,12 +6,6 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Events\Dispatcher;
 use Ardiran\Core\Route\Router;
 
-/**
- * Class RouterProvider
- *
- * @author Themosis
- * @url https://github.com/themosis/framework/blob/1.3/src/Themosis/Route/RouteServiceProvider.php
- */
 class RouterProvider extends ServiceProvider{
 
     /**
