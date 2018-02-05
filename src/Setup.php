@@ -29,6 +29,8 @@ class Setup{
 
     private $is_ajaxcontrollers_registered = false;
 
+    private $is_providers_registered = false;
+
     public function __construct(){
 
         $this->app = Ardiran::getInstance();
@@ -127,6 +129,23 @@ class Setup{
             }
 
             $this->is_aliases_registered = true;
+
+        }
+
+    }
+
+    /**
+     * Register new providers in the container.
+     *
+     * @param array $providers
+     */
+    public function registerProviders(array $providers){
+
+        if(!$this->is_providers_registered) {
+
+            $this->app->container()->registerProviders($providers);
+
+            $this->is_providers_registered = true;
 
         }
 

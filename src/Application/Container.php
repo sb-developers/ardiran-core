@@ -31,7 +31,7 @@ class Container extends IlluminateContainer{
      */
     public function __construct(){
 
-        $this->registerProviders();
+        $this->registerProviders($this->providers);
 
     }
 
@@ -40,9 +40,9 @@ class Container extends IlluminateContainer{
      *
      * @return void
      */
-    private function registerProviders(){
+    public function registerProviders(array $providers){
 
-        foreach ($this->providers as $provider) {
+        foreach ($providers as $provider) {
             $this->register($provider);
         }
 
