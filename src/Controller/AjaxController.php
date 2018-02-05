@@ -2,6 +2,7 @@
 
 namespace Ardiran\Core\Controller;
 
+use Ardiran\Core\Ardiran;
 use Ardiran\Core\Http\Request;
 use Ardiran\Core\Controller\Controller;
 
@@ -52,10 +53,12 @@ abstract class AjaxController extends Controller {
 	 *
 	 * @return void
 	 */
-	public static function boot(){ 	
+	public static function boot(){
 
-		$request = Request::capture();
-		
+        $container = Ardiran::getInstance();
+
+        $request = $container->container('ardiran.request');
+
 		$classObj = Self::getClassName();
 		$class = new $classObj;
 		

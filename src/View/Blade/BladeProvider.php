@@ -2,8 +2,10 @@
 
 namespace Ardiran\Core\View\Blade;
 
+use Ardiran\Core\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Ardiran\Core\View\Blade\Blade;
+use Ardiran\Core\View\Blade\BladeException;
 
 class BladeProvider extends ServiceProvider{
 
@@ -16,8 +18,12 @@ class BladeProvider extends ServiceProvider{
 
         $this->app->singleton('ardiran.blade', function ($container) {
 
-            $paths = $container['ardiran.config']->get('view.paths');
-            $compiled = $container['ardiran.config']->get('view.compiled');
+            if( !Config::has('view.paths') || !Config::has('view.compiled') ){
+                throw new BladeException("You must add to the configuration the 'view.paths' and 'view.compiled' in config directory.");
+            }
+
+            $paths = Config::get('view.paths');
+            $compiled = Config::get('view.compiled');
 
             return new Blade($container, $paths, $compiled);
             

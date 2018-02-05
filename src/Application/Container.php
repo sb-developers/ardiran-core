@@ -13,6 +13,7 @@ class Container extends IlluminateContainer{
      * @var array
      */
     protected $providers = [
+        \Ardiran\Core\Facades\FacadeProvider::class,
         \Ardiran\Core\Config\ConfigProvider::class,
         \Ardiran\Core\Route\RouterProvider::class,
         \Ardiran\Core\View\Blade\BladeProvider::class,
@@ -31,7 +32,6 @@ class Container extends IlluminateContainer{
     public function __construct(){
 
         $this->registerProviders();
-        $this->configureFacadeObject();
 
     }
 
@@ -73,16 +73,6 @@ class Container extends IlluminateContainer{
         if (method_exists($provider, 'boot')) {
             $provider->boot();
         }
-
-    }
-
-    /**
-     * Register the container in Facade object base.
-     * It is necessary to later find the accesors inside the container.
-     */
-    public function configureFacadeObject(){
-
-        Facade::setFacadeApplication( $this );
 
     }
 

@@ -5,6 +5,7 @@ namespace Ardiran\Core\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Events\Dispatcher;
 use Ardiran\Core\Route\Router;
+use Ardiran\Core\Http\Request;
 
 class RouterProvider extends ServiceProvider{
 
@@ -15,6 +16,8 @@ class RouterProvider extends ServiceProvider{
      * @return void
      */
     public function register(){
+
+        $this->app->instance('ardiran.request', Request::capture());
 
         $this->app->bind('ardiran.events', function ($container) {
             return new Dispatcher($container);

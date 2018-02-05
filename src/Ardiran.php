@@ -44,16 +44,4 @@ class Ardiran{
 
     }
 
-    /**
-     * Allows access to the configuration.
-     *
-     * @param string $key
-     * @return void
-     */
-    public function config($key){
-
-        return $this->container('config')->get($key);
-
-    }
-
 }
