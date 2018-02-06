@@ -3,7 +3,7 @@
 namespace Ardiran\Core\Config;
 
 use Ardiran\Core\Application\ServiceProvider;
-use Ardiran\Core\Config\ConfigRepository;
+use Ardiran\Core\Config\Config;
 
 class ConfigProvider extends ServiceProvider {
     
@@ -15,7 +15,7 @@ class ConfigProvider extends ServiceProvider {
     public function register(){
 
         $this->app->bindIf('ardiran.config', function () {
-            return new ConfigRepository();
+            return new Config();
         }, true);
 
     }

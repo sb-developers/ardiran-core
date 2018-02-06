@@ -15,6 +15,31 @@ class Ardiran{
      * @var Container
      */
     private $container;
+
+    /**
+     * List with the providers to load in the Laravel container.
+     *
+     * @var array
+     */
+    private $providers = [
+        \Ardiran\Core\Facades\FacadeProvider::class,
+        \Ardiran\Core\Config\ConfigProvider::class,
+        \Ardiran\Core\Routing\RouterProvider::class,
+        \Ardiran\Core\View\Blade\BladeProvider::class,
+    ];
+
+    /**
+     * List facades.
+     *
+     * @var array
+     */
+    private $aliases = [
+        'Config' => \Ardiran\Core\Facades\Config::class,
+        'Route' => \Ardiran\Core\Facades\Route::class,
+        'Request' => \Ardiran\Core\Facades\Request::class,
+        'Blade' => \Ardiran\Core\Facades\Blade::class,
+        'ServiceManager' => \Ardiran\Core\Facades\ServiceManager::class,
+    ];
     
     /**
      * Constructor
@@ -22,6 +47,18 @@ class Ardiran{
     public function __construct(){
 
         $this->container = new Container();
+
+        $this->register();
+
+    }
+
+    /**
+     * Register all principal elements of App.
+     */
+    private function register(){
+
+        $this->container->registerProviders($this->providers);
+        $this->container->registerAliases($this->aliases);
 
     }
 

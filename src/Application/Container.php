@@ -15,9 +15,22 @@ class Container extends IlluminateContainer{
     protected $loadedProviders = [];
 
     /**
-     * Constructor
+     * List with the aliases that have been loaded.
+     *
+     * @var array
      */
-    public function __construct(){
+    protected $loadedAliases = [];
+
+    /**
+     * Register new providers in the container.
+     *
+     * @param array $providers
+     */
+    public function registerProviders(array $providers){
+
+        foreach ($providers as $provider) {
+            $this->registerProvider($provider);
+        }
 
     }
 
@@ -46,6 +59,41 @@ class Container extends IlluminateContainer{
         if (method_exists($provider, 'boot')) {
             $provider->boot();
         }
+
+    }
+
+    /**
+     * Register all aliases (Facades).
+     *
+     * @param array $aliases
+     */
+    public function registerAliases(array $aliases){
+
+        if (!empty($aliases) && is_array($aliases)) {
+
+            foreach ($aliases as $alias => $fullname) {
+                $this->registerAlias($fullname, $alias);
+            }
+
+        }
+
+    }
+
+    /**
+     * Register alias class.
+     *
+     * @param $fullname
+     * @param $alias
+     */
+    public function registerAlias($fullname, $alias){
+
+        if (array_key_exists($aliaslwc = strtolower($alias), $this->loadedAliases)) {
+            return;
+        }
+
+        $this->loadedAliases[$aliaslwc] = true;
+
+        class_alias($fullname, $alias);
 
     }
 

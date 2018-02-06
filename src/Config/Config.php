@@ -5,7 +5,7 @@ namespace Ardiran\Core\Config;
 use Illuminate\Config\Repository;
 use Symfony\Component\Finder\Finder;
 
-class ConfigRepository extends Repository{
+class Config extends Repository{
 
     /**
      * Load all the configuration files in the repository.
