@@ -1,6 +1,6 @@
 <?php
 
-namespace Ardiran\Core\Route;
+namespace Ardiran\Core\Routing;
 
 use Illuminate\Routing\RouteCollection as IlluminateRouteCollection;
 

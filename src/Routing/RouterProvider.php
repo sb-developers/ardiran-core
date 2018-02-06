@@ -1,13 +1,13 @@
 <?php
 
-namespace Ardiran\Core\Route;
+namespace Ardiran\Core\Routing;
 
-use Illuminate\Support\ServiceProvider;
+use Ardiran\Core\Application\ServiceProvider;
 use Illuminate\Events\Dispatcher;
-use Ardiran\Core\Route\Router;
+use Ardiran\Core\Routing\Router;
 use Ardiran\Core\Http\Request;
 
-class RouterProvider extends ServiceProvider{
+class RouterProvider extends ServiceProvider {
 
     /**
      * Register the Events Dispatcher into the container.

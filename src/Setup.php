@@ -10,8 +10,18 @@ class Setup{
 
     use Singleton;
 
+    /**
+     * Ardiran app.
+     *
+     * @var Ardiran
+     */
     private $app;
 
+    /**
+     * List facades.
+     *
+     * @var array
+     */
     private $aliases = [
         'Config' => \Ardiran\Core\Facades\Config::class,
         'Route' => \Ardiran\Core\Facades\Route::class,
@@ -19,21 +29,39 @@ class Setup{
         'ServiceManager' => \Ardiran\Core\Facades\ServiceManager::class,
     ];
 
+    /**
+     * List with the providers to load in the Laravel container.
+     *
+     * @var array
+     */
+    private $providers = [
+        \Ardiran\Core\Facades\FacadeProvider::class,
+        \Ardiran\Core\Config\ConfigProvider::class,
+        \Ardiran\Core\Routing\RouterProvider::class,
+        \Ardiran\Core\View\Blade\BladeProvider::class,
+    ];
+
+    /**
+     * @var bool
+     */
     private $is_config_registered = false;
 
+    /**
+     * @var bool
+     */
     private $is_servicemanager_registered = false;
 
-    private $is_router_registered = false;
-
-    private $is_aliases_registered = false;
-
+    /**
+     * @var bool
+     */
     private $is_ajaxcontrollers_registered = false;
-
-    private $is_providers_registered = false;
 
     public function __construct(){
 
         $this->app = Ardiran::getInstance();
+
+        $this->registerProviders($this->providers);
+        $this->registerAliases($this->aliases);
 
     }
 
@@ -74,61 +102,17 @@ class Setup{
     }
 
     /**
-     * Set the router in Wordpress
-     */
-    public function registerRouter(){
-
-        if(!$this->is_router_registered) {
-
-            add_action('template_redirect', function () {
-
-                if (is_feed() || is_comment_feed()) {
-                    return;
-                }
-
-                try {
-
-                    $request = $this->app->container('ardiran.request');
-                    $response = $this->app->container('ardiran.router')->dispatch($request);
-
-                    // We only send back the content because, headers are already defined
-                    // by WordPress internals.
-                    $response->sendContent();
-
-                } catch (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $exception) {
-                    /*
-                     * Fallback to WordPress templates.
-                     */
-                }
-
-            }, 20);
-
-            $this->is_router_registered = true;
-
-        }
-
-    }
-
-    /**
      * Register all aliases (Facades).
      *
      * @param array $aliases
      */
-    public function registerAliases($aliases = array()){
+    public function registerAliases(array $aliases){
 
-        if(!$this->is_aliases_registered) {
+        if (!empty($aliases) && is_array($aliases)) {
 
-            $aliases = $this->aliases + $aliases;
-
-            if (!empty($aliases) && is_array($aliases)) {
-
-                foreach ($aliases as $alias => $fullname) {
-                    class_alias($fullname, $alias);
-                }
-
+            foreach ($aliases as $alias => $fullname) {
+                class_alias($fullname, $alias);
             }
-
-            $this->is_aliases_registered = true;
 
         }
 
@@ -141,12 +125,8 @@ class Setup{
      */
     public function registerProviders(array $providers){
 
-        if(!$this->is_providers_registered) {
-
-            $this->app->container()->registerProviders($providers);
-
-            $this->is_providers_registered = true;
-
+        foreach ($providers as $provider) {
+            $this->app->container()->registerProvider($provider);
         }
 
     }

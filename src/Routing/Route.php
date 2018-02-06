@@ -1,11 +1,11 @@
 <?php
 
-namespace Ardiran\Core\Route;
+namespace Ardiran\Core\Routing;
 
 use Illuminate\Routing\Route as IlluminateRoute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Ardiran\Core\Route\Matching\ConditionMatching;
+use Ardiran\Core\Routing\Matching\ConditionMatching;
 
 class Route extends IlluminateRoute{
 

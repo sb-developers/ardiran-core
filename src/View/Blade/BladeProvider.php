@@ -2,12 +2,12 @@
 
 namespace Ardiran\Core\View\Blade;
 
+use Ardiran\Core\Application\ServiceProvider;
 use Ardiran\Core\Facades\Config;
-use Illuminate\Support\ServiceProvider;
 use Ardiran\Core\View\Blade\Blade;
 use Ardiran\Core\View\Blade\BladeException;
 
-class BladeProvider extends ServiceProvider{
+class BladeProvider extends ServiceProvider {
 
     /**
      * Register the Blade template compiler in the Laravel core.

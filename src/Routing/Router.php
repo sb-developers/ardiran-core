@@ -1,11 +1,11 @@
 <?php
 
-namespace Ardiran\Core\Route;
+namespace Ardiran\Core\Routing;
 
 use Ardiran\Core\Application\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Routing\Router as IlluminateRouter;
-use Ardiran\Core\Route\Route;
+use Ardiran\Core\Routing\Route;
 
 class Router extends IlluminateRouter{
 

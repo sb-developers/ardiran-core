@@ -1,6 +1,6 @@
 <?php
 
-namespace Ardiran\Core\Controller;
+namespace Ardiran\Core\Routing;
 
 use Illuminate\Routing\Controller as IlluminateController;
 

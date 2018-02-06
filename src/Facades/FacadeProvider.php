@@ -2,10 +2,10 @@
 
 namespace Ardiran\Core\Facades;
 
-use Illuminate\Support\ServiceProvider;
+use Ardiran\Core\Application\ServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
-class FacadeProvider extends ServiceProvider{
+class FacadeProvider extends ServiceProvider {
 
     /**
      * Register the container in Facade object base.

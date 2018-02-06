@@ -1,9 +1,9 @@
 <?php
 
-namespace Ardiran\Core\Route\Matching;
+namespace Ardiran\Core\Routing\Matching;
 
 use Ardiran\Core\Http\Request;
-use Ardiran\Core\Route\Route;
+use Ardiran\Core\Routing\Route;
 
 class ConditionMatching implements IMatching{
 

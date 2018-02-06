@@ -1,10 +1,10 @@
 <?php
 
-namespace Ardiran\Core\Controller;
+namespace Ardiran\Core\Routing;
 
 use Ardiran\Core\Ardiran;
 use Ardiran\Core\Http\Request;
-use Ardiran\Core\Controller\Controller;
+use Ardiran\Core\Routing\Controller;
 
 abstract class AjaxController extends Controller {
 
