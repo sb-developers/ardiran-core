@@ -1,6 +1,6 @@
 <?php
 
-namespace Ardiran\Core\Routing;
+namespace Ardiran\Core\Wp\Routing;
 
 use Ardiran\Core\Ardiran;
 use Ardiran\Core\Http\Request;

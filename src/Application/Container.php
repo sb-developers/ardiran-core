@@ -93,7 +93,7 @@ class Container extends IlluminateContainer{
 
         $this->loadedAliases[$aliaslwc] = true;
 
-        class_alias($fullname, $alias);
+        $this->alias($fullname, $alias);
 
     }
 

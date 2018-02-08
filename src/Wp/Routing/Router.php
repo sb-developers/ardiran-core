@@ -1,11 +1,12 @@
 <?php
 
-namespace Ardiran\Core\Routing;
+namespace Ardiran\Core\Wp\Routing;
 
 use Ardiran\Core\Application\Container;
+use Ardiran\Core\Wp\Routing\RouteCollection;
+use Ardiran\Core\Wp\Routing\Route;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Routing\Router as IlluminateRouter;
-use Ardiran\Core\Routing\Route;
 
 class Router extends IlluminateRouter{
 
@@ -29,7 +30,7 @@ class Router extends IlluminateRouter{
      * @param  array|string $methods
      * @param  string       $uri
      * @param  mixed        $action
-     * @return \Ardiran\Core\Route\Route
+     * @return \Ardiran\Core\Routing\Wp\Route
      */
     protected function newRoute($methods, $uri, $action){
 
@@ -43,7 +44,7 @@ class Router extends IlluminateRouter{
      * Find the route matching a given request.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Ardiran\Core\Route\Route
+     * @return \Ardiran\Core\Routing\Wp\Route
      */
     protected function findRoute($request){
 

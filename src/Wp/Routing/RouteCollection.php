@@ -1,6 +1,6 @@
 <?php
 
-namespace Ardiran\Core\Routing;
+namespace Ardiran\Core\Wp\Routing;
 
 use Illuminate\Routing\RouteCollection as IlluminateRouteCollection;
 
@@ -9,7 +9,7 @@ class RouteCollection extends IlluminateRouteCollection{
     /**
      * Add the given route to the arrays of routes.
      *
-     * @param \Ardiran\Core\Route\Route $route
+     * @param \Ardiran\Core\Routing\Wp\Route $route
      */
     protected function addToCollections($route){
 
@@ -38,7 +38,7 @@ class RouteCollection extends IlluminateRouteCollection{
      * @param \Illuminate\http\Request $request
      * @param bool                     $includingMethod
      *
-     * @return \Ardiran\Core\Route\Route $route | null
+     * @return \Ardiran\Core\Routing\Wp\Route $route | null
      */
     protected function check(array $routes, $request, $includingMethod = true){
 

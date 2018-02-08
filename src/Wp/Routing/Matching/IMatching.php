@@ -1,9 +1,9 @@
 <?php
 
-namespace Ardiran\Core\Routing\Matching;
+namespace Ardiran\Core\Wp\Routing\Matching;
 
 use Ardiran\Core\Http\Request;
-use Ardiran\Core\Routing\Route;
+use Ardiran\Core\Wp\Routing\Route;
 
 interface IMatching{
 
