@@ -22,11 +22,11 @@ class Ardiran{
      * @var array
      */
     private $providers = [
-        \Ardiran\Core\Facades\FacadeProvider::class,
-        \Ardiran\Core\Config\ConfigProvider::class,
-        \Ardiran\Core\View\Blade\BladeProvider::class,
-        \Ardiran\Core\Routing\RouterProvider::class,
-        \Ardiran\Core\Wp\Routing\RouterProvider::class,
+        \Ardiran\Core\Facades\FacadeServiceProvider::class,
+        \Ardiran\Core\Config\ConfigServiceProvider::class,
+        \Ardiran\Core\Routing\RouterServiceProvider::class,
+        \Ardiran\Core\Wp\Routing\RouterServiceProvider::class,
+        \Ardiran\Core\View\ViewServiceProvider::class,
     ];
 
     /**
@@ -37,7 +37,7 @@ class Ardiran{
     private $aliases = [
         'Config' => \Ardiran\Core\Facades\Config::class,
         'Request' => \Ardiran\Core\Facades\Request::class,
-        'Blade' => \Ardiran\Core\Facades\Blade::class,
+        'View' => \Ardiran\Core\Facades\View::class,
         'ServiceManager' => \Ardiran\Core\Facades\ServiceManager::class,
         'WpRoute' => \Ardiran\Core\Wp\Facades\Route::class,
     ];

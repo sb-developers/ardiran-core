@@ -4,7 +4,7 @@ namespace Ardiran\Core\Wp\Routing;
 
 use Ardiran\Core\Application\ServiceProvider;
 
-class RouterProvider extends ServiceProvider {
+class RouterServiceProvider extends ServiceProvider {
 
     /**
      * Register the Router HTTP.

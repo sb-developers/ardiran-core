@@ -30,7 +30,7 @@ class Router extends IlluminateRouter{
      * @param  array|string $methods
      * @param  string       $uri
      * @param  mixed        $action
-     * @return \Ardiran\Core\Routing\Wp\Route
+     * @return \Ardiran\Core\Wp\Routing\Route
      */
     protected function newRoute($methods, $uri, $action){
 
@@ -44,7 +44,7 @@ class Router extends IlluminateRouter{
      * Find the route matching a given request.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Ardiran\Core\Routing\Wp\Route
+     * @return \Ardiran\Core\Wp\Routing\Route
      */
     protected function findRoute($request){
 

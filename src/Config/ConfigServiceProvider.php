@@ -5,7 +5,7 @@ namespace Ardiran\Core\Config;
 use Ardiran\Core\Application\ServiceProvider;
 use Ardiran\Core\Config\Config;
 
-class ConfigProvider extends ServiceProvider {
+class ConfigServiceProvider extends ServiceProvider {
     
     /**
      * We register the configuration repository in the Laravel core.

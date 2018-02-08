@@ -5,7 +5,7 @@ namespace Ardiran\Core\Facades;
 use Ardiran\Core\Application\ServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
-class FacadeProvider extends ServiceProvider {
+class FacadeServiceProvider extends ServiceProvider {
 
     /**
      * Register the container in Facade object base.
@@ -15,7 +15,7 @@ class FacadeProvider extends ServiceProvider {
      */
     public function register(){
 
-        Facade::setFacadeApplication( $this->app );
+        Facade::setFacadeApplication($this->app);
 
     }
 

@@ -6,7 +6,7 @@ use Ardiran\Core\Application\ServiceProvider;
 use Illuminate\Events\Dispatcher;
 use Ardiran\Core\Http\Request;
 
-class RouterProvider extends ServiceProvider {
+class RouterServiceProvider extends ServiceProvider {
 
     /**
      * Register the Events Dispatcher into the container.
@@ -16,11 +16,11 @@ class RouterProvider extends ServiceProvider {
      */
     public function register(){
 
-        $this->app->instance('ardiran.request', Request::capture());
-
         $this->app->bind('ardiran.events', function ($container) {
             return new Dispatcher($container);
         });
+
+        $this->app->instance('ardiran.request', Request::capture());
 
     }
 
