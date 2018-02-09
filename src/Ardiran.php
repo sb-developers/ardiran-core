@@ -38,7 +38,6 @@ class Ardiran{
         'Config' => \Ardiran\Core\Facades\Config::class,
         'Request' => \Ardiran\Core\Facades\Request::class,
         'View' => \Ardiran\Core\Facades\View::class,
-        'ServiceManager' => \Ardiran\Core\Facades\ServiceManager::class,
         'WpRoute' => \Ardiran\Core\Wp\Facades\Route::class,
     ];
 
@@ -61,14 +60,31 @@ class Ardiran{
     }
 
     /**
+     * Allows access to container functionalities or obtain the container.
+     *
+     * @param string $abstract
+     * @param array $parameters
+     * @return void
+     */
+    public function container($abstract = null, $parameters = []){
+
+        if (!$abstract) {
+            return $this->container;
+        }
+
+        return $this->container->bound($abstract)
+            ? $this->container->make($abstract, $parameters)
+            : $this->container->make("ardiran.{$abstract}", $parameters);
+
+    }
+
+    /**
      * Register all principal elements in Laravel Container.
      * Register all principal elements in Ardiran App context.
      */
     private function register(){
 
-        $this->container->registerProviders($this->providers);
-        $this->container->registerAliases($this->aliases);
-
+        $this->registerProviders($this->providers);
         $this->registerAliases($this->aliases);
 
     }
@@ -80,9 +96,12 @@ class Ardiran{
      */
     public function registerAliases(array $aliases){
 
+        $this->container->registerAliases($this->aliases);
+
         if (!empty($aliases) && is_array($aliases)) {
 
             foreach ($aliases as $alias => $fullname) {
+
                 $this->registerAlias($fullname, $alias);
             }
 
@@ -109,21 +128,13 @@ class Ardiran{
     }
 
     /**
-     * Allows access to container functionalities or obtain the container.
+     * Register new providers in the container.
      *
-     * @param string $abstract
-     * @param array $parameters
-     * @return void
+     * @param array $providers
      */
-    public function container($abstract = null, $parameters = []){
-       
-        if (!$abstract) {
-            return $this->container;
-        }
+    public function registerProviders(array $providers){
 
-        return $this->container->bound($abstract)
-            ? $this->container->make($abstract, $parameters)
-            : $this->container->make("ardiran.{$abstract}", $parameters);
+        $this->container->registerProviders($providers);
 
     }
 

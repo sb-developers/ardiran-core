@@ -4,7 +4,6 @@ namespace Ardiran\Core;
 
 use Ardiran\Core\Ardiran;
 use Ardiran\Core\Traits\Singleton;
-use Ardiran\Core\Http\Request;
 
 class Setup{
 
@@ -36,25 +35,13 @@ class Setup{
     }
 
     /**
-     * Register the serviceManager.
-     * Necessary to later be able to use the facade 'ServiceManager'.
-     *
-     * @param $serviceManager
-     */
-    public function registerServiceManager($serviceManager){
-
-        $this->app->container()->instance('ardiran.servicemanager', $serviceManager);
-
-    }
-
-    /**
      * Register all aliases (Facades).
      *
      * @param array $aliases
      */
     public function registerAliases(array $aliases){
 
-        $this->app->container()->registerAliases($aliases);
+        $this->app->registerAliases($aliases);
 
     }
 
@@ -65,22 +52,7 @@ class Setup{
      */
     public function registerProviders(array $providers){
 
-        $this->app->container()->registerProviders($providers);
-
-    }
-
-    /**
-     * Listen to all ajax controllers
-     *
-     * @param array $ajaxControllers
-     */
-    public function registerAjaxControllers(array $ajaxControllers){
-
-        array_map(function ($class) {
-
-            call_user_func($class . '::listen');
-
-        }, $ajaxControllers);
+        $this->app->registerProviders($providers);
 
     }
 
