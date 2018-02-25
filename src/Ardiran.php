@@ -39,6 +39,7 @@ class Ardiran{
         'Config' => \Ardiran\Core\Facades\Config::class,
         'Request' => \Ardiran\Core\Facades\Request::class,
         'View' => \Ardiran\Core\Facades\View::class,
+        'Database' => \Ardiran\Core\Facades\Database::class,
         'WpRoute' => \Ardiran\Core\Wp\Facades\Route::class,
     ];
 
