@@ -2,7 +2,7 @@
 
 namespace Ardiran\Core\View\Blade;
 
-use Ardiran\Core\View\Blade\Directive\WpDirective;
+use Ardiran\Core\Wp\View\Blade\Directive\WpDirective;
 use Illuminate\View\Compilers\BladeCompiler as IlluminateBladeCompiler;
 
 class BladeCompiler extends IlluminateBladeCompiler{

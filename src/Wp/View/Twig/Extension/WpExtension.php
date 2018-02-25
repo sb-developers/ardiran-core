@@ -1,6 +1,6 @@
 <?php
 
-namespace Ardiran\Core\View\Twig\Extension;
+namespace Ardiran\Core\Wp\View\Twig\Extension;
 
 use \Twig_Extension;
 use \Twig_SimpleFunction;

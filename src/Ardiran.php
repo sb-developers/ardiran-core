@@ -27,6 +27,7 @@ class Ardiran{
         \Ardiran\Core\Routing\RouterServiceProvider::class,
         \Ardiran\Core\Wp\Routing\RouterServiceProvider::class,
         \Ardiran\Core\View\ViewServiceProvider::class,
+        \Ardiran\Core\Database\DatabaseServiceProvider::class,
     ];
 
     /**

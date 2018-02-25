@@ -3,7 +3,7 @@
 namespace Ardiran\Core\View\Twig;
 
 use \Twig_Extension_Debug;
-use Ardiran\Core\View\Twig\Extension\WpExtension;
+use Ardiran\Core\Wp\View\Twig\Extension\WpExtension;
 
 class TwigCompiler{
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ardiran\Core\View\Blade\Directive;
+namespace Ardiran\Core\Wp\View\Blade\Directive;
 
 class WpDirective{
 
@@ -29,7 +29,7 @@ class WpDirective{
         /*
          * Add the '@get_bloginfo' directive
          */
-        $compiler->directive('get_bloginfo', function ($show = '', $filter = 'raw') {
+        $compiler->directive('get_bloginfo', function ($show = '', $filter = '"raw"') {
             return '<?php echo get_bloginfo(' . $show . ', ' . $filter . '); ?>';
         });
 
@@ -57,42 +57,42 @@ class WpDirective{
         /*
          * Add the '@__' directive
          */
-        $compiler->directive('__', function ($text, $domain = 'default') {
+        $compiler->directive('__', function ($text, $domain = '"default"') {
             return '<?php echo __(' . $text . ', ' . $domain . '); ?>';
         });
 
         /*
          * Add the '@_e' directive
          */
-        $compiler->directive('_e', function ($text, $domain = 'default') {
+        $compiler->directive('_e', function ($text, $domain = '"default"') {
             return '<?php echo _e(' . $text . ', ' . $domain . '); ?>';
         });
 
         /*
          * Add the '@_n' directive
          */
-        $compiler->directive('_n', function ($single, $plural, $number, $domain = 'default') {
+        $compiler->directive('_n', function ($single, $plural, $number, $domain = '"default"') {
             return '<?php echo _n(' . $single . ', ' . $plural . ', ' . $number . ', ' . $domain . '); ?>';
         });
 
         /*
          * Add the '@_x' directive
          */
-        $compiler->directive('_x', function ($text, $context, $domain = 'default') {
+        $compiler->directive('_x', function ($text, $context, $domain = '"default"') {
             return '<?php echo _x(' . $text . ', ' . $context . ', ' . $domain . '); ?>';
         });
 
         /*
          * Add the '@_ex' directive
          */
-        $compiler->directive('_ex', function ($text, $context, $domain = 'default') {
+        $compiler->directive('_ex', function ($text, $context, $domain = '"default"') {
             return '<?php echo _ex(' . $text . ', ' . $context . ', ' . $domain . '); ?>';
         });
 
         /*
          * Add the '@_nx' directive
          */
-        $compiler->directive('_nx', function ($text, $plural, $number, $context, $domain = 'default') {
+        $compiler->directive('_nx', function ($text, $plural, $number, $context, $domain = '"default"') {
             return '<?php echo _nx(' . $text . ', ' . $plural . ', ' . $number . ', ' . $context . ', ' . $domain . '); ?>';
         });
 

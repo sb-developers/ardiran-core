@@ -48,6 +48,8 @@ class ViewServiceProvider extends ServiceProvider {
             $pathToCompiledTemplates = Config::get('view.compiled');
             $filesystem = $container['ardiran.filesystem'];
 
+            $this->createCompiledDirectoryIfNotExist($filesystem, $pathToCompiledTemplates);
+
             return new BladeCompiler($filesystem , $pathToCompiledTemplates);
         });
 
@@ -67,8 +69,11 @@ class ViewServiceProvider extends ServiceProvider {
                 throw new ViewException("You must add to the configuration the 'view.compiled' in config directory.");
             }
 
+            $filesystem = $container['ardiran.filesystem'];
             $twigFilesystem = $container['ardiran.twigFilesystem'];
             $pathToCompiledTemplates = Config::get('view.compiled');
+
+            $this->createCompiledDirectoryIfNotExist($filesystem, $pathToCompiledTemplates);
 
             $twigCompiler = new TwigCompiler($twigFilesystem, $pathToCompiledTemplates);
 
@@ -153,6 +158,14 @@ class ViewServiceProvider extends ServiceProvider {
             return $factory;
 
         });
+
+    }
+
+    private function createCompiledDirectoryIfNotExist($filesystem, $pathToCompiledTemplates){
+
+        if ( !$filesystem->isDirectory($pathToCompiledTemplates)){
+            $filesystem->makeDirectory($pathToCompiledTemplates, 755, true, true);
+        }
 
     }
 
