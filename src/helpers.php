@@ -50,7 +50,7 @@ if (! function_exists('secure_url')) {
      * @return \Illuminate\Contracts\Routing\UrlGenerator|string
      */
     function secure_url($path, $parameters = []){
-        return urlWp($path, $parameters, true);
+        return url($path, $parameters, true);
     }
 
 }
