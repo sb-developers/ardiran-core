@@ -5,6 +5,7 @@ namespace Ardiran\Core\Routing;
 use Ardiran\Core\Application\ServiceProvider;
 use Illuminate\Events\Dispatcher;
 use Ardiran\Core\Http\Request;
+use Illuminate\Routing\UrlGenerator;
 
 class RouterServiceProvider extends ServiceProvider {
 
@@ -21,6 +22,17 @@ class RouterServiceProvider extends ServiceProvider {
         });
 
         $this->app->instance('ardiran.request', Request::capture());
+
+        $this->app->bind('ardiran.urlgenerator', function ($container) {
+
+            $request = $container['ardiran.request'];
+            $routes = $container['ardiran.wp_router']->getRoutes();
+
+            $routes->refreshNameLookups();
+
+            return new UrlGenerator($routes, $request);
+
+        });
 
     }
 
