@@ -55,3 +55,23 @@ if (! function_exists('secure_url')) {
 
 }
 
+if (!function_exists('assets_images')) {
+
+    /**
+     * Helper function to obtain image url.
+     *
+     * @param null  $image_path   Image path relative to 'paths-resources.images'
+     *
+     * @return String
+     */
+    function assets_images($image_path = ''){
+
+        if(!ardiran('ardiran.config')->has('theme.paths-resources.images')){
+            throw new Exception("You must add to the configuration the 'theme.paths-resources.images' in config directory.");
+        }
+
+        return ardiran('ardiran.config')->get('theme.paths-resources.images') . $image_path;
+
+    }
+
+}
