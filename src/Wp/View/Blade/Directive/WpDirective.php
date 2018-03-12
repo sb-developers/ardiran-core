@@ -117,6 +117,13 @@ class WpDirective{
             return '<?php echo translate_nooped_plural(' . $nooped_plural . ', ' . $count . ', ' . $domain . '); ?>';
         });
 
+        /*
+         * Add the '@wp_nav_menu' directive
+         */
+        $compiler->directive('wp_nav_menu', function ($args = array()) {
+            return '<?php wp_nav_menu(' . $args . '); ?>';
+        });
+
     }
 
 }

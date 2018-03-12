@@ -28,6 +28,7 @@ class Ardiran{
         \Ardiran\Core\Wp\Routing\RouterServiceProvider::class,
         \Ardiran\Core\View\ViewServiceProvider::class,
         \Ardiran\Core\Database\DatabaseServiceProvider::class,
+        \Ardiran\Core\Agent\AgentServiceProvider::class,
     ];
 
     /**
@@ -40,6 +41,7 @@ class Ardiran{
         'Request' => \Ardiran\Core\Facades\Request::class,
         'View' => \Ardiran\Core\Facades\View::class,
         'Database' => \Ardiran\Core\Facades\Database::class,
+        'Agent' => \Ardiran\Core\Facades\Agent::class,
         'WpRoute' => \Ardiran\Core\Wp\Facades\Route::class,
     ];
 

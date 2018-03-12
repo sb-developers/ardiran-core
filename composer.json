@@ -20,7 +20,8 @@
     "illuminate/routing": "^5.5",
     "illuminate/database": "^5.5",
     "twig/twig": "~1.0",
-    "phpunit/phpunit": "^6.5"
+    "phpunit/phpunit": "^6.5",
+    "jenssegers/agent": "^3.0@dev"
   },
   "autoload": {
     "files": [
