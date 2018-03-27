@@ -24,6 +24,48 @@ if (!function_exists('ardiran')) {
 
 }
 
+if (!function_exists('assets_images')) {
+
+    /**
+     * Helper function to obtain image url.
+     *
+     * @param null  $image_path   Image path relative to 'paths-resources.images'
+     *
+     * @return String
+     */
+    function assets_images($image_path = ''){
+
+        if(!ardiran('ardiran.config')->has('theme.paths-resources.images')){
+            throw new Exception("You must add to the configuration the 'theme.paths-resources.images' in config directory.");
+        }
+
+        return ardiran('ardiran.config')->get('theme.paths-resources.images') . $image_path;
+
+    }
+
+}
+
+if (!function_exists('assets')) {
+
+    /**
+     * Helper function to obtain resource url.
+     *
+     * @param null  $resource_path   Resource path relative to 'paths-resources.assets'
+     *
+     * @return String
+     */
+    function assets($resource_path = ''){
+
+        if(!ardiran('ardiran.config')->has('theme.paths-resources.assets')){
+            throw new Exception("You must add to the configuration the 'theme.paths-resources.assets' in config directory.");
+        }
+
+        return ardiran('ardiran.config')->get('theme.paths-resources.assets') . $resource_path;
+
+    }
+
+}
+
 if (! function_exists('url')) {
 
     /**
@@ -35,7 +77,7 @@ if (! function_exists('url')) {
      * @return \Illuminate\Contracts\Routing\UrlGenerator|string
      */
     function url($path, $parameters = [], $secure = null){
-        return ardiran('ardiran.urlgenerator')->to($path, $parameters, $secure);
+        return ardiran('ardiran.wp_urlgenerator')->to($path, $parameters, $secure);
     }
 
 }
@@ -55,22 +97,24 @@ if (! function_exists('secure_url')) {
 
 }
 
-if (!function_exists('assets_images')) {
+if (!function_exists('redirect')){
 
     /**
-     * Helper function to obtain image url.
+     * Wp Redirect to route
      *
-     * @param null  $image_path   Image path relative to 'paths-resources.images'
-     *
-     * @return String
+     * @param null $to
+     * @param int $status
+     * @param array $headers
+     * @param null $secure
+     * @return mixed
      */
-    function assets_images($image_path = ''){
+    function redirect($to = null, $status = 302, $headers = [], $secure = null){
 
-        if(!ardiran('ardiran.config')->has('theme.paths-resources.images')){
-            throw new Exception("You must add to the configuration the 'theme.paths-resources.images' in config directory.");
+        if(is_null($to)){
+            return ardiran('ardiran.wp_redirector');
         }
 
-        return ardiran('ardiran.config')->get('theme.paths-resources.images') . $image_path;
+        return ardiran('ardiran.wp_redirector')->to($to, $status, $headers, $secure);
 
     }
 
