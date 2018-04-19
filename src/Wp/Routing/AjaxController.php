@@ -5,6 +5,7 @@ namespace Ardiran\Core\Wp\Routing;
 use Ardiran\Core\Ardiran;
 use Ardiran\Core\Http\Request;
 use Ardiran\Core\Routing\Controller;
+use PHPUnit\Runner\Exception;
 
 abstract class AjaxController extends Controller {
 
@@ -34,10 +35,16 @@ abstract class AjaxController extends Controller {
 	 * @param boolean $public
 	 * @return void
 	 */
-    public static function listen($public = true){
+    public static function listen(){
 
 		$actionName = Self::getAttribute('action');
 		$className = Self::getClassName();
+
+		try {
+            $public = Self::getAttribute('public');
+        }catch(Exception $e){
+            $public = true;
+        }
 
 		add_action("wp_ajax_{$actionName}", [$className, 'boot']);
 		
