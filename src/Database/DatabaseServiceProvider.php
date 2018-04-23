@@ -42,6 +42,10 @@ class DatabaseServiceProvider extends ServiceProvider {
 
         });
 
+	    $this->app->singleton(  'db', function ($container) {
+		    return $container['ardiran.database'];
+	    });
+
     }
 
 }

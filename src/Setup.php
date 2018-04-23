@@ -32,7 +32,18 @@ class Setup{
 
         $this->app->container('ardiran.config')->loadConfigurationFiles($path_configs);
 
+	    $this->registerDbEloquent();
+
     }
+
+	/**
+	 * Register the Db for all Eloquent Models.
+	 */
+	public function registerDbEloquent(){
+
+		$this->app->container('db');
+
+	}
 
     /**
      * Register all aliases (Facades).
