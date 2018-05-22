@@ -1,11 +1,9 @@
 <?php
 
-namespace Ardiran\Core\Wp\Routing;
+namespace Ardiran\Core\Routing;
 
-use Ardiran\Core\Ardiran;
-use Ardiran\Core\Http\Request;
-use Ardiran\Core\Routing\Controller;
-use PHPUnit\Runner\Exception;
+use Themosis\Foundation\Request;
+use Illuminate\Routing\Controller;
 
 abstract class AjaxController extends Controller {
 
@@ -62,9 +60,7 @@ abstract class AjaxController extends Controller {
 	 */
 	public static function boot(){
 
-        $container = Ardiran::getInstance();
-
-        $request = $container->container('ardiran.request');
+        $request = \container('request');
 
 		$classObj = Self::getClassName();
 		$class = new $classObj;

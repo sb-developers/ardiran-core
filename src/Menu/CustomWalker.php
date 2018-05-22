@@ -1,6 +1,6 @@
 <?php
 
-namespace Ardiran\Core\Wp\Menu;
+namespace Ardiran\Core\Menu;
 
 class CustomWalker extends \Walker_Nav_Menu {
 

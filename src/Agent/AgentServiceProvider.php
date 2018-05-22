@@ -14,8 +14,6 @@ class AgentServiceProvider extends ServiceProvider {
      */
     public function register(){
 
-    	die("hola");
-
         $this->app->singleton(  'ardiran.agent', function ($container) {
 
             $agent = new Agent($container['request']->server->all());
