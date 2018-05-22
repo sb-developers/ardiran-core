@@ -2,8 +2,8 @@
 
 namespace Ardiran\Core\Agent;
 
-use Ardiran\Core\Application\ServiceProvider;
 use \Jenssegers\Agent\Agent;
+use Themosis\Foundation\ServiceProvider;
 
 class AgentServiceProvider extends ServiceProvider {
 
@@ -14,9 +14,11 @@ class AgentServiceProvider extends ServiceProvider {
      */
     public function register(){
 
+    	die("hola");
+
         $this->app->singleton(  'ardiran.agent', function ($container) {
 
-            $agent = new Agent($container['ardiran.request']->server->all());
+            $agent = new Agent($container['request']->server->all());
 
             return $agent;
 

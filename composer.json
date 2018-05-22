@@ -1,6 +1,6 @@
 {
   "name": "ardiran/core",
-  "type": "package",
+  "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
   "authors": [
     {
@@ -12,14 +12,6 @@
   "require": {
     "php": ">=5.3.2",
     "composer/installers": "~1.2",
-    "illuminate/view": "^5.5",
-    "illuminate/events": "^5.5",
-    "illuminate/filesystem": "^5.5",
-    "illuminate/config": "^5.5",
-    "illuminate/http": "^5.5",
-    "illuminate/routing": "^5.5",
-    "illuminate/database": "^5.5",
-    "twig/twig": "~1.0",
     "phpunit/phpunit": "^6.5",
     "jenssegers/agent": "^2.6.0"
   },

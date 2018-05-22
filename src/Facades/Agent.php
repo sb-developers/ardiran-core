@@ -2,7 +2,7 @@
 
 namespace Ardiran\Core\Facades;
 
-use Illuminate\Support\Facades\Facade;
+use Themosis\Facades\Facade;
 
 class Agent extends Facade {
 
