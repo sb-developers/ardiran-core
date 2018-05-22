@@ -1,7 +1,5 @@
 <?php
 
-die("hey");
-
 /*
  * No generator
  */
@@ -28,6 +26,11 @@ function add_filters($tags, $function) {
 	foreach($tags as $tag) {
 		add_filter($tag, $function);
 	}
+}
+
+function is_localhost(){
+	return substr($_SERVER['REMOTE_ADDR'], 0, 4) == '127.'
+	       || $_SERVER['REMOTE_ADDR'] == '::1';
 }
 
 function roots_rewrites() {
@@ -86,7 +89,7 @@ function roots_rewrites() {
 		}
 	}
 
-	if (!is_multisite() && !is_child_theme()) {
+	if (!is_multisite() && !is_child_theme() && !is_localhost()) {
 		add_action('generate_rewrite_rules', 'roots_add_rewrites');
 
 		if (!is_admin()) {
@@ -105,7 +108,7 @@ function roots_rewrites() {
 
 }
 
-add_action('after_setup_theme', 'roots_rewrites');
+// add_action('after_setup_theme', 'roots_rewrites');
 
 /*
  * Limpieza de wp_head()
