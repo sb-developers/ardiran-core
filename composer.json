@@ -17,7 +17,8 @@
   },
   "autoload": {
     "files": [
-      "src/helpers.php"
+      "src/helpers.php",
+      "src/security.php"
     ],
     "psr-4": {
       "Ardiran\\Core\\": "src"
