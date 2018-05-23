@@ -71,3 +71,33 @@ if (!function_exists('redirect')){
 	}
 
 }
+
+if (!function_exists('assets')) {
+
+	/**
+	 * Helper function to obtain resource url.
+	 *
+	 * @param null  $resource_path   Resource path relative to 'paths-resources.assets'
+	 *
+	 * @return String
+	 */
+	function assets($resource_path = ''){
+		return themosis_theme_assets() . $resource_path;
+	}
+
+}
+
+if (!function_exists('assets_images')) {
+
+	/**
+	 * Helper function to obtain image url.
+	 *
+	 * @param null  $image_path   Image path relative to 'paths-resources.images'
+	 *
+	 * @return String
+	 */
+	function assets_images($image_path = ''){
+		return assets('/images/' . $image_path);
+	}
+
+}

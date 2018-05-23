@@ -30,8 +30,7 @@ abstract class AjaxController extends Controller {
 	/**
 	 * Function registered by the controller within WordPress in order to receive the request.
 	 *
-	 * @param boolean $public
-	 * @return void
+	 * @throws \Exception
 	 */
     public static function listen(){
 

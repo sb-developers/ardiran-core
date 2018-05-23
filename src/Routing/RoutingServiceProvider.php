@@ -9,7 +9,7 @@ use Illuminate\Routing\UrlGenerator;
 class RoutingServiceProvider extends ServiceProvider {
 
 	/**
-	 * Add object of management of user agent
+	 * Register Urlgenerator y Redirector.
 	 *
 	 * @return void
 	 */
