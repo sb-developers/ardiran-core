@@ -14,6 +14,15 @@ class ViewServiceProvider extends ServiceProvider {
 	 */
 	public function register(){
 
+
+
+	}
+
+	/**
+	 * Boot View Options
+	 */
+	public function boot(){
+
 		$this->registerBladeDirectives($this->app);
 
 	}
@@ -27,7 +36,7 @@ class ViewServiceProvider extends ServiceProvider {
 
 		$blade = $container->get('view')->getEngineResolver()->resolve('blade')->getCompiler();
 
-		$blade = (new WpDirective())->extend($blade);
+		(new WpDirective())->extend($blade);
 
 	}
 
