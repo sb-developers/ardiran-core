@@ -1,6 +1,6 @@
 <?php
 
-namespace Ardiran\Core\Facades;
+namespace Ardiran\Core\Themosis\Facades;
 
 use Themosis\Facades\Facade;
 

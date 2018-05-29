@@ -1,6 +1,6 @@
 <?php
 
-namespace Ardiran\Core\Agent;
+namespace Ardiran\Core\Themosis\Agent;
 
 use \Jenssegers\Agent\Agent;
 use Themosis\Foundation\ServiceProvider;

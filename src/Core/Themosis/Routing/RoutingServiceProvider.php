@@ -1,6 +1,6 @@
 <?php
 
-namespace Ardiran\Core\Routing;
+namespace Ardiran\Core\Themosis\Routing;
 
 use Themosis\Foundation\ServiceProvider;
 use Illuminate\Routing\Redirector;

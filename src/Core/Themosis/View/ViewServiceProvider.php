@@ -1,8 +1,8 @@
 <?php
 
-namespace Ardiran\Core\View;
+namespace Ardiran\Core\Themosis\View;
 
-use Ardiran\Core\View\Blade\WpDirective;
+use Ardiran\Core\Themosis\View\Blade\WpDirective;
 use Themosis\Foundation\ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider {
@@ -12,11 +12,7 @@ class ViewServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function register(){
-
-
-
-	}
+	public function register(){ }
 
 	/**
 	 * Boot View Options

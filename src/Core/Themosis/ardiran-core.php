@@ -33,3 +33,8 @@ if (!isset($GLOBALS['themosis'])) {
 	 */
 	wp_die($text, $title);
 }
+
+/*
+ * Include helpers.
+ */
+require_once(__DIR__ . '/helpers.php');

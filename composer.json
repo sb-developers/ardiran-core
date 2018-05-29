@@ -16,12 +16,8 @@
     "jenssegers/agent": "^2.6.0"
   },
   "autoload": {
-    "files": [
-      "src/helpers.php",
-      "src/security.php"
-    ],
     "psr-4": {
-      "Ardiran\\Core\\": "src"
+      "Ardiran\\": "src"
     }
   }
 }

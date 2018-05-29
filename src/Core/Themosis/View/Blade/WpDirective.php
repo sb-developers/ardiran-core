@@ -1,6 +1,6 @@
 <?php
 
-namespace Ardiran\Core\View\Blade;
+namespace Ardiran\Core\Themosis\View\Blade;
 
 class WpDirective{
 
@@ -11,20 +11,6 @@ class WpDirective{
 	 * @return void
 	 */
 	public function extend( &$compiler ){
-
-		/*
-		 * Add the '@wp_head' directive
-		 */
-		$compiler->directive('wp_head', function () {
-			return '<?php wp_head(); ?>';
-		});
-
-		/*
-		 * Add the '@wp_footer' directive
-		 */
-		$compiler->directive('wp_footer', function () {
-			return '<?php wp_footer(); ?>';
-		});
 
 		/*
 		 * Add the '@get_bloginfo' directive
@@ -38,20 +24,6 @@ class WpDirective{
 		 */
 		$compiler->directive('body_class', function ($class = '') {
 			return '<?php echo body_class(' . $class .'); ?>';
-		});
-
-		/*
-		 * Add the '@loop' directive.
-		 */
-		$compiler->directive('loop', function () {
-			return '<?php if(have_posts()) { while(have_posts()) { the_post(); ?>';
-		});
-
-		/*
-		 * Add the '@endloop' directive.
-		 */
-		$compiler->directive('endloop', function () {
-			return '<?php }} ?>';
 		});
 
 		/*
