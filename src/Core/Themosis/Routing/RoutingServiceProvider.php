@@ -33,6 +33,15 @@ class RoutingServiceProvider extends ServiceProvider {
 
 		});
 
+		$this->app->singleton('sb.response.factory', function ($container) {
+
+			return new ResponseFactory(
+				$container['view'],
+				$container['sb.redirector']
+			);
+
+		});
+
 	}
 
 }
