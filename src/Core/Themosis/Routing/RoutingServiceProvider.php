@@ -6,6 +6,11 @@ use Themosis\Foundation\ServiceProvider;
 use Illuminate\Routing\Redirector;
 use Illuminate\Routing\UrlGenerator;
 
+/**
+ * Class RoutingServiceProvider
+ * {@inheritdoc }
+ * @package Ardiran\Core\Themosis\Routing
+ */
 class RoutingServiceProvider extends ServiceProvider {
 
 	/**

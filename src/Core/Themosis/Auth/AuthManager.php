@@ -6,7 +6,7 @@ use WP_User;
 
 /**
  * Class AuthManager
- * @package Sb\Core\Themosis\Auth
+ * @package Ardiran\Core\Themosis\Auth
  */
 class AuthManager {
 

@@ -5,6 +5,11 @@ namespace Ardiran\Core\Themosis\Routing;
 use Themosis\Foundation\Request;
 use Illuminate\Routing\Controller;
 
+/**
+ * Class AjaxController
+ * {@inheritdoc }
+ * @package Ardiran\Core\Themosis\Routing
+ */
 abstract class AjaxController extends Controller {
 
 	/**

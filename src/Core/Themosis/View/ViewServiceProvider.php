@@ -5,6 +5,11 @@ namespace Ardiran\Core\Themosis\View;
 use Ardiran\Core\Themosis\View\Blade\WpDirective;
 use Themosis\Foundation\ServiceProvider;
 
+/**
+ * Class ViewServiceProvider
+ * {@inheritdoc }
+ * @package Ardiran\Core\Themosis\View
+ */
 class ViewServiceProvider extends ServiceProvider {
 
 	/**

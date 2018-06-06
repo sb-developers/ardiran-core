@@ -5,6 +5,11 @@ namespace Ardiran\Core\Themosis\Agent;
 use \Jenssegers\Agent\Agent;
 use Themosis\Foundation\ServiceProvider;
 
+/**
+ * Class AgentServiceProvider
+ * {@inheritdoc }
+ * @package Ardiran\Core\Themosis\Agent
+ */
 class AgentServiceProvider extends ServiceProvider {
 
     /**

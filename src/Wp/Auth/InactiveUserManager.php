@@ -4,7 +4,7 @@ namespace Ardiran\Wp\Auth;
 
 /**
  * Class InactiveUsers
- * @package Sb\Wp\Auth
+ * @package Ardiran\Wp\Auth
  * @source Wp Iddle logout https://github.com/greguly/wp-idle-logout
  */
 class InactiveUserManager{
@@ -64,6 +64,8 @@ class InactiveUserManager{
 	 * If it isn't, the meta is created for the current time.
 	 * If it is, the timestamp is checked against the inactivity period.
 	 *
+	 * @param $user_login
+	 * @param $user
 	 */
 	public function login_key_refresh( $user_login, $user ) {
 		update_user_meta( $user->ID, self::ID . '_last_active_time', time() );
@@ -115,6 +117,7 @@ class InactiveUserManager{
 	 * Deletes the 'last_active_time' meta when called.
 	 * Used on normal logout and on idleness logout.
 	 *
+	 * @param bool $user_id
 	 */
 	public function clear_activity_meta( $user_id = false ) {
 

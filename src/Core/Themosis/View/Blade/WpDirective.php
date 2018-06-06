@@ -2,6 +2,10 @@
 
 namespace Ardiran\Core\Themosis\View\Blade;
 
+/**
+ * Class WpDirective
+ * @package Ardiran\Core\Themosis\View\Blade
+ */
 class WpDirective{
 
 	/**

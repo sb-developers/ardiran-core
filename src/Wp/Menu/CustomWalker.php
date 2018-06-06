@@ -2,6 +2,11 @@
 
 namespace Ardiran\Wp\Menu;
 
+/**
+ * Class CustomWalker
+ * {@inheritdoc }
+ * @package Ardiran\Wp\Menu
+ */
 class CustomWalker extends \Walker_Nav_Menu {
 
     private $id;

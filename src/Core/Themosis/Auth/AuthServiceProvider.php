@@ -7,7 +7,7 @@ use Themosis\Foundation\ServiceProvider;
 /**
  * Class AuthServiceProvider
  * {@inheritdoc }
- * @package Sb\Core\Themosis\Auth
+ * @package Ardiran\Core\Themosis\Auth
  */
 class AuthServiceProvider extends ServiceProvider{
 

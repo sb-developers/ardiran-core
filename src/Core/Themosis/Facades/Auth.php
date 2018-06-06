@@ -6,7 +6,8 @@ use Themosis\Facades\Facade;
 
 /**
  * Class Auth
- * @package Sb\Core\Themosis\Facades
+ * {@inheritdoc }
+ * @package Ardiran\Core\Themosis\Facades
  */
 class Auth extends Facade {
 

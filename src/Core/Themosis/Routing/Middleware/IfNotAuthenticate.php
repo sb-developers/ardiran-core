@@ -7,7 +7,7 @@ use Closure;
 /**
  * Class IfNotAuthenticate
  * {@inheritdoc }
- * @package Sb\Core\Themosis\Routing\Middleware
+ * @package Ardiran\Core\Themosis\Routing\Middleware
  */
 class IfNotAuthenticate{
 
